@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
     // TODO: Get the contact information (from the form - found in $_POST)
-    $dbhelp = new DbHelper();
+    $dbhelp = new UserToDB();
 
     $dbhelp->insertToDb($user);
     // TODO: Return ok if everything ok or,

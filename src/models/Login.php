@@ -6,15 +6,15 @@
  * Time: 1:10 PM
  * To change this template use File | Settings | File Templates.
  */
-    include_once "UserToDBOriginal.php";
+    include_once "../obj/UserToDB.php";
 
     $valid = false;
 
-    $dbHelper = new DbHelper();
-    $realuser = $dbHelper->getUserByUsername($username);
+    $userToDB = new UserToDB();
+    $realuser = $userToDB->getUserByUsername($username);
 
     if ($realuser) {
-        if (md5($password) == $realuser['password'])
+        if (md5($password) == $realuser->getPassword())
             $valid = true;
     }
     // get the real User from the DB by the username the user has entered

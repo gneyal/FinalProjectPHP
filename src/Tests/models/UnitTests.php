@@ -49,6 +49,8 @@
         $testUserToDB->testInsertToDB();
         $testUserToDB->testGetUserById();
         $testUserToDB->testUpdateUser();
+        $testUserToDB->testGetUserByUsername();
+        $testUserToDB->testGetAllUsers();
     }
 
 //    testPortfolio(); // tested
