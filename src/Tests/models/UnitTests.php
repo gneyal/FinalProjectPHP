@@ -19,54 +19,41 @@
 
     $path = "/home/eyal/Dropbox/Workspace/Code/Learning/PHP/FinalProject/FinalProject/src";
 
-    include_once $path . "/models/DbHelper.php";
-    include_once $path . "/models/DbHelperForStock.php";
+//    include_once $path . "/models/UserToDBOriginal.php";
     include_once $path . "/obj/User.php";
-    include_once $path . "/obj/Stock.php";
+    include_once $path . "/obj/UserToDB.php";
+
     include_once $path . "/obj/Portfolio.php";
     include_once $path . "/obj/Position.php";
     include_once $path . "/obj/PositionToDB.php";
 
-    function testStock() {
-        $testStock = new TestStock();
-        $testStock->testConstructorGetSymbolGetBuyPrice();
-
-    }
-
     function testPortfolio() {
         $test1 = new TestPortfolio();
-        $test1->testAddStockGetStocks();
-    }
 
-    function testDbHelper() {
-        $testDbHelper = new TestDbHelper();
-
-        $testDbHelper->testInsertToDb();
-        //$testDbHelper->testDeleteFromDb();
-        $testDbHelper->testUpdateDb();
-    }
-
-    function testDbHelpterForStock() {
-        $testDbHelperForStock = new TestDbHelperForStock();
-        $testDbHelperForStock->testGetStocksListForUser();
-    }
-
-    function testUser() {
-        $testUser = new TestUser();
-        $testUser->testBuyStock();
+        $test1->testAddPosition();
+        $test1->testRemovePosition();
+        $test1->testGetPositions();
     }
 
     function testPositionToDB() {
         $testPositionToDB = new TestPositionToDB();
+
         $testPositionToDB->testInsertToDb();
         $testPositionToDB->testSelectPositionsByUser();
+        $testPositionToDB->testDeleteFromDb();
     }
 
-//    testStock();
-//    testPortfolio();
-//    testDbHelpterForStock();
-//
-//    testUser();
-//    testDbHelper();
-    testPositionToDB();
+    function testUserToDB() {
+        $testUserToDB = new TestUserToDB();
+
+        $testUserToDB->testInsertToDB();
+        $testUserToDB->testGetUserById();
+        $testUserToDB->testUpdateUser();
+    }
+
+//    testPortfolio(); // tested
+
+//    testPositionToDB(); // tested: I think it's ok for now.
+
+    testUserToDB();
 ?>

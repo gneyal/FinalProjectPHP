@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
     include_once "../obj/User.php";
-    include_once "../models/DbHelper.php";
+    include_once "../models/UserToDBOriginal.php";
 
     $user = new User($_POST['username'], $_POST['password'], $_POST['email']);
 

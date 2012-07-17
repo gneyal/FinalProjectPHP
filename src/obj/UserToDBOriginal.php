@@ -8,11 +8,12 @@
  */
 $path = "/home/eyal/Dropbox/Workspace/Code/Learning/PHP/FinalProject/FinalProject/src";
 
-class DbHelper
+class UserToDBOriginal
 {
     public $dbUri  = 'mysql:host=127.0.0.1;dbname=Goldenbear';
     public $dbUser = 'eyal';
     public $dbPass = 'eyalpassword';
+    public $dbTable = 'users';
     public $dbh;
 
     public function __construct() {
@@ -53,7 +54,7 @@ class DbHelper
     }
 }
 
-include_once $path.'/obj/User.php';
+include_once $path . '/obj/User.php';
 
 class TestDbHelper {
     // not working when there is another user with the same name (uncaught exception)

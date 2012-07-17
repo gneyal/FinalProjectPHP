@@ -13,6 +13,7 @@ class User
 {
     public $INITIAL_CASH = 1000;
 
+    public $id;
     public $username;
     public $password;
     public $email;
@@ -20,11 +21,12 @@ class User
 
     public $portfolio;
 
-    public function __construct($user, $pass, $em) {
+    public function __construct($user, $pass, $em, $id = 0) {
         $this->username = $user;
         $this->password = $pass;
         $this->email = $em;
         $this->cash = $this->INITIAL_CASH;
+        $this->id = $id;
 
         $this->portfolio = new Portfolio($user);
     }
@@ -76,29 +78,21 @@ class User
         // add the stock to the protfolio
 
     }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
 }
 
-include_once 'Stock.php';
 
-class TestUser {
 
-    public function testBuyStock() {
-        $username = "Assaf";
-        $password = "password";
-        $email = "assaf@assaf";
-        $user = new User($username, $password, $email);
+class TestUser
+{
 
-        $stockSymbol = "Intel";
-        $buyPrice = 100;
-
-        $stockToBuy = new Stock($stockSymbol, $buyPrice);
-        $user->buyStock($stockToBuy);
-
-        $msg1 = "After buying $stockSymbol the cash in $username should be ".$user->INITIAL_CASH-$buyPrice;
-        echo "$msg1"."</br>";
-
-        $msg2 = "Actual cash is : ";
-        echo "$msg2".$user->getCash();
-
-    }
 }

@@ -6,7 +6,7 @@
  * Time: 1:10 PM
  * To change this template use File | Settings | File Templates.
  */
-    include_once "DbHelper.php";
+    include_once "UserToDBOriginal.php";
 
     $valid = false;
 

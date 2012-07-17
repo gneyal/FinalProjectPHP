@@ -9,64 +9,108 @@
 
 $path = "/home/eyal/Dropbox/Workspace/Code/Learning/PHP/FinalProject/FinalProject/src";
 
-include_once $path . "/models/DbHelperForStock.php";
-
-include_once $path . "/obj/Stock.php";
+include_once $path . "/obj/Position.php";
+include_once $path . "/obj/PositionToDB.php";
 
 class Portfolio
 {
     public $username;
     // This is an array of the stocks in this portfolio.
-    public $stocks;
-    public $dbStockHelper;
+    public $positions;
+    public $dbPositionHelper;
 
     // at first i'm limitting the amount to 1
     public $AMOUNT = 1;
 
     public function __construct($uname) {
         $this->username = $uname;
-        $this->stocks = array();
-        $this->dbStockHelper = new DbHelperForStock();
+        $this->positions = array();
+        $this->dbPositionHelper = new PositionToDB();
     }
 
-    public function addStock($stock) {
+    public function addPosition($position) {
         // The portfolio should not handle the cash
         // add to database
-        $this->dbStockHelper->insertToDb($this->username, $stock, $this->AMOUNT, $stock->getBuyPrice());
+        $this->dbPositionHelper->insertToDb($position);
     }
 
-    public function getStocks() {
-        $stocksHelper = $this->dbStockHelper->getStocksListForUser($this->username);
-        foreach ($stocksHelper as $i => $databaseStockInfo) {
-            $stock = new Stock($databaseStockInfo['Symbol'], $databaseStockInfo['BuyPrice']);
-            array_push($this->stocks, $stock);
-        }
-        return $this->stocks;
+    public function getPositions() {
+        $this->positions = $this->dbPositionHelper->selectPositionsByUser($this->username);
+        return $this->positions;
+    }
+
+    // remove a position by id
+    public function removePosition($positionId) {
+        $this->dbPositionHelper->deletePositionById($positionId);
+    }
+
+    public function getDbPositionHelper()
+    {
+        return $this->dbPositionHelper;
     }
 }
 
 class TestPortfolio {
-    public function testAddStockGetStocks() {
-        $funame = "TestPortfolio::testAddStockGetStocks() : ";
+    public function testAddPosition() {
+        $funame = "TestPortfolio::testAddPosition() : ";
         $pass = "PASS";
         $fail = "FAIL";
 
         $port = new Portfolio("Eyal");
-        $port->addStock(new Stock("TEVA", 100));
-        $port->addStock(new Stock("GolanTele", 100));
+        $port->addPosition(new Position("Eyal", "Teva", 400, 400));
+        $port->addPosition(new Position("Eyal", "Teva", 400, 500));
 
-        $stocks = $port->getStocks();
-        $golan = $stocks['0'];
-        $teva = $stocks['1'];
-        if ((($teva->getSymbol() == "TEVA" ) ) && ( $golan->getSymbol() == "GolanTele"))
-           echo $funame . $pass;
-        else echo $funame . $fail;
+        if ( $port->getDbPositionHelper()->countRows() == 2)
+            echo $funame . $pass . "</br>";
+        else echo $funame . $fail . "</br>";
 
-        echo "</br>";
+        $port->getDbPositionHelper()->deleteAllRows();
     }
 
-    public function testGetStocks() {
+    public function testRemovePosition() {
+        $funame = "TestPortfolio::testRemovePosition() : ";
+        $pass = "PASS";
+        $fail = "FAIL";
 
+        $port = new Portfolio("Eyal");
+
+        $port->getDbPositionHelper()->deleteAllRows();
+
+        $port->addPosition(new Position("Eyal", "Teva", 400, 400));
+
+        $positionsArray = $port->getPositions("Eyal");
+
+        $onlyPosition = $positionsArray[0];
+
+        $port->removePosition($onlyPosition->getId());
+
+        if ( $port->getDbPositionHelper()->countRows() == 0)
+            echo $funame . $pass . "</br>";
+        else echo $funame . $fail . "</br>";
+
+        $port->getDbPositionHelper()->deleteAllRows();
+    }
+
+    public function testGetPositions() {
+        $funame = "TestPortfolio::testGetPositions() : ";
+        $pass = "PASS";
+        $fail = "FAIL";
+
+        $port = new Portfolio("Eyal");
+
+        $port->getDbPositionHelper()->deleteAllRows();
+
+        $port->addPosition(new Position("Eyal", "Teva", 400, 400));
+
+        $positionsArray = $port->getPositions("Eyal");
+
+        $onlyPosition = $positionsArray[0];
+
+        if ( get_class($onlyPosition) == "Position")
+            echo $funame . $pass . "</br>";
+        else echo $funame . $fail . "</br>";
+
+        $port->getDbPositionHelper()->deleteAllRows();
     }
 }
 

@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
     include_once "../obj/User.php";
-    include_once "DbHelper.php";
+    include_once "UserToDBOriginal.php";
 
     $user1 = new User("Oleg", "123456", "oleg@oleg.com");
     $dbhelper = new DbHelper();
