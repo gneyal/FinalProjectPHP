@@ -124,7 +124,7 @@ class UserToDB
                 while ($userInArray = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     $user = new User(
                         $userInArray['username'], $userInArray['password'],
-                        $userInArray['email'], $userInArray['id']);
+                        $userInArray['email'], $userInArray['id'], $userInArray['Cash']);
 
                     array_push($allUsers, $user);
                 }

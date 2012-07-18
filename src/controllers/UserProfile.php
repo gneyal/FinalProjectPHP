@@ -2,8 +2,8 @@
 /**
  * Created by JetBrains PhpStorm.
  * User: eyal
- * Date: 7/17/12
- * Time: 5:31 PM
+ * Date: 7/18/12
+ * Time: 12:00 PM
  * To change this template use File | Settings | File Templates.
  */
 
@@ -14,8 +14,7 @@ $userToDB = new UserToDB();
 $calc = new Calculator();
 
 $users = $userToDB->getAllUsers();
+// for now lets present only the first user
+$user = $users[0];
 
-$usersProfitArray = $calc->getUsersProfitArray();
-
-    // foreach user: username => (foreach symbol : {symbol => profit}; total=> profit)
-include_once('../views/UsersList.php');
+include_once('../views/UserProfile.php');

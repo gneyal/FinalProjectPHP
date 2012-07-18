@@ -21,11 +21,11 @@ class User
 
     public $portfolio;
 
-    public function __construct($user, $pass, $em, $id = 0) {
+    public function __construct($user, $pass, $em, $id = 0, $cash = 1000000) {
         $this->username = $user;
         $this->password = $pass;
         $this->email = $em;
-        $this->cash = $this->INITIAL_CASH;
+        $this->cash = $cash;
         $this->id = $id;
 
         $this->portfolio = new Portfolio($user);
@@ -69,14 +69,18 @@ class User
         $this->cash = $amount;
     }
 
-    public function buyStock($stock) {
+    // after changing the user state (for example the cash)
+    // you should use UserToDB->updateUser function
+    public function buyStock($symbol, $amount, $buyprice) {
         // if not in the portfolio
         // if you have enough cash
         // substract the cash accordingly
 
-        $this->cash -= $stock->getBuyPrice();
-        // add the stock to the protfolio
+        $this->cash -= $buyprice * $amount;
 
+        // add the stock to the protfolio
+        $position = new Position($this->username, $symbol, $amount, $buyprice);
+        $this->portfolio->addPosition($position);
     }
 
     public function setId($id)
@@ -88,9 +92,12 @@ class User
     {
         return $this->id;
     }
+
+    public function getPortfolio()
+    {
+        return $this->portfolio;
+    }
 }
-
-
 
 class TestUser
 {

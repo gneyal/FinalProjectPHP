@@ -22,8 +22,13 @@
     <ul>
         <li>Name: <?php echo $user->getUsername(); ?></li>
         <li>Email: <?php echo $user->getEmail(); ?></li>
-        <li>Portfolio profit: <?php echo $user->getEmail(); ?></li>
+        <?php
+//            $usersProfitArray = $usersProfit->getUsersProfitArray();
+            $totalPerUser = $usersProfitArray[$user->getUsername()]['total'];
+        ?>
+        <li>Portfolio profit: <?php echo $totalPerUser; ?></li>
     </ul>
+    </br>
     <?php } ?>
 </ul>
 

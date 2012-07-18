@@ -26,6 +26,8 @@
     include_once $path . "/obj/Portfolio.php";
     include_once $path . "/obj/Position.php";
     include_once $path . "/obj/PositionToDB.php";
+    include_once $path . "/obj/Calculator.php";
+    include_once $path . "/obj/PopulateDB.php";
 
     function testPortfolio() {
         $test1 = new TestPortfolio();
@@ -53,9 +55,25 @@
         $testUserToDB->testGetAllUsers();
     }
 
+    function testCalculator() {
+        $testCalculator = new TestCalculator();
+        $testCalculator->testGetUsersProfitArray();
+    }
+
+    function testPopulateDB() {
+        $testPopulateDB = new TestPopulateDB();
+
+        $testPopulateDB->testDB1();
+//        $testPopulateDB->testEmptyDBs();
+    }
+
+
 //    testPortfolio(); // tested
 
 //    testPositionToDB(); // tested: I think it's ok for now.
 
-    testUserToDB();
+//    testUserToDB();
+//    testCalculator();
+
+    testPopulateDB();
 ?>
