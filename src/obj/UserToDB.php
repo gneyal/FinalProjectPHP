@@ -58,7 +58,7 @@ class UserToDB
             // not sure if should query for the pass word as well
             $user = new User(
                 $userInArray['username'], $userInArray['password'],
-                $userInArray['email'], $userInArray['id']);
+                $userInArray['email'], $userInArray['id'], $userInArray['Cash']);
 
         } catch (Exception $e) {
             echo $e->getTraceAsString();

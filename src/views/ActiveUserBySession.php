@@ -2,9 +2,11 @@
 /**
  * Created by JetBrains PhpStorm.
  * User: eyal
- * Date: 7/12/12
- * Time: 11:56 AM
+ * Date: 7/19/12
+ * Time: 10:07 AM
  * To change this template use File | Settings | File Templates.
  */
 
-include_once '../views/LoginSignup.php';
+?>
+
+<h2>active user is : <?php echo $_SESSION['activeUserUsername']; ?></h2>

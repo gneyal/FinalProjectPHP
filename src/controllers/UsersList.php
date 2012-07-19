@@ -7,6 +7,12 @@
  * To change this template use File | Settings | File Templates.
  */
 
+if (!isset($_SESSION))
+    session_start();
+
+$activeUserUsername = $_SESSION['activeUserUsername'];
+$activeUserId = $_SESSION['activeUserId'];
+
 include_once('../obj/UserToDB.php');
 include_once('../obj/Calculator.php');
 

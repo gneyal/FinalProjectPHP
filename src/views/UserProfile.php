@@ -15,6 +15,12 @@
     <title>User Profile</title>
 </head>
 <body>
+    <?php include_once "ActiveUserBySession.php"; ?>
+    <ul>
+        <li><a href="../controllers/Logout.php">Logout</a></li>
+        <li><a href="../controllers/UsersList.php">UsersList</a></li>
+        <li><a href="../controllers/StockList.php">StocksList</a></li>
+    </ul>
     <h1>User Profile Page</h1>
 
     <!-- user picture -->
@@ -23,11 +29,13 @@
     <!-- user graph -->
     <img src="../../img/sample_stock_graph.jpg" alt="user graph">
 
+    <h2>User Details:</h2>
     <ul>
         <li><?php echo $user->getUsername(); ?></li>
         <li><?php echo $user->getEmail(); ?></li>
         <li><?php echo $user->getCash(); ?></li>
     </ul>
+    <h2>User Positions:</h2>
     <ul>
         <?php $positions = $user->portfolio->getPositions(); ?>
         <?php foreach ($positions as $key => $position) { ?>
@@ -35,7 +43,10 @@
         <li>Symbol: <?php echo "$symbol"; ?></li>
         <?php $profitForPosition = $calc->getPositionProfit($user->getUsername(), $position->getId()) ?>
         <li>Profit: <?php echo $profitForPosition; ?></li>
+        <?php if ($permissions == 'user') { ?>
         <li><a href="#">Sell</a></li>
+        <?php } ?>
+
         <?php } ?>
     </ul>
 

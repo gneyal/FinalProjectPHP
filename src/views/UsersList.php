@@ -15,6 +15,12 @@
     <title>Bears List</title>
 </head>
 <body>
+<?php include_once "ActiveUserBySession.php"; ?>
+<ul>
+    <li><a href="../controllers/Logout.php">Logout</a></li>
+    <li><a href="../controllers/UserProfile.php">My Profile</a></li>
+    <li><a href="../controllers/StockList.php">StocksList</a></li>
+</ul>
 <h1>Bears List</h1>
 
 <ul>
@@ -27,6 +33,11 @@
             $totalPerUser = $usersProfitArray[$user->getUsername()]['total'];
         ?>
         <li>Portfolio profit: <?php echo $totalPerUser; ?></li>
+        <form method="POST" action="../controllers/UserProfile.php">
+            <input type="hidden" name="userIdToPresent" value="<?php echo $user->getId(); ?>">
+
+            <input type="submit" value="<?php $user->getUsername(); ?>">
+        </form>
     </ul>
     </br>
     <?php } ?>
